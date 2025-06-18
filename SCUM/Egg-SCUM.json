@@ -17,7 +17,7 @@
     "startup": "wine64 .\/SCUMServer\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -Port=\"{{SERVER_PORT}}\"",
     "config": {
         "files": "{}",
-        "startup": "{\n}",
+        "startup": "{\n   \"done\":\"MasterPort\"\n}\n"
         "logs": "{}",
         "stop": "^C"
     },
