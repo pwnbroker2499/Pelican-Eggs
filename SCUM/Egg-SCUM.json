@@ -14,7 +14,7 @@
         "Wine Latest": "ghcr.io\/parkervcp\/yolks:wine_latest"
     },
     "file_denylist": [],
-    "startup": "wine64 .\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -ServerName=\"{{SERVER_NAME}}\" -ServerPassword=\"{{SERVER_PASSWORD}}\" -PORT=\"{{SERVER_PORT}}\" -QueryPort=\"{{QUERY_PORT}}\" ",
+    "startup": "wine64 .\/SCUMServer\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -ServerName=\"{{SERVER_NAME}}\" -ServerPassword=\"{{SERVER_PASSWORD}}\" -PORT=\"{{SERVER_PORT}}\" -QueryPort=\"{{QUERY_PORT}}\" ",
     "config": {
         "files": "{}",
         "startup": "{}",
