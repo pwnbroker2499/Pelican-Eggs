@@ -4,17 +4,17 @@
         "version": "PLCN_v1",
         "update_url": null
     },
-    "exported_at": "2025-06-18T05:33:55+00:00",
-    "name": "SCUM",
+    "exported_at": "2025-06-18T06:59:07+00:00",
+    "name": "SCUM - Temp",
     "author": "PwnBroker3000@gmail.com",
     "uuid": "f9097184-4f79-4a6d-8b02-b066dbee790b",
-    "description": "SCUM Server",
+    "description": "SCUM Server. You will need to hand edit the SeverSettings.ini found in SCUM\/Saved\/Config\/WindowsServer\/",
     "features": [],
     "docker_images": {
         "Wine Latest": "ghcr.io\/parkervcp\/yolks:wine_latest"
     },
     "file_denylist": [],
-    "startup": "wine64 .\/SCUMServer\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -ServerName=\"{{SERVER_NAME}}\" -ServerPassword=\"{{SERVER_PASSWORD}}\" -PORT=\"{{SERVER_PORT}}\" -QueryPort=\"{{QUERY_PORT}}\" ",
+    "startup": "wine64 .\/SCUMServer\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log",
     "config": {
         "files": "{}",
         "startup": "{}",
@@ -60,45 +60,6 @@
             "rules": [
                 "required",
                 "in:1,0"
-            ]
-        },
-        {
-            "sort": 4,
-            "name": "Server Name",
-            "description": "",
-            "env_variable": "SERVER_NAME",
-            "default_value": "Pelican SCUM",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string",
-                "max:64"
-            ]
-        },
-        {
-            "sort": 5,
-            "name": "[REQUIRED] Server Query Port",
-            "description": "",
-            "env_variable": "QUERY_PORT",
-            "default_value": "27015",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer"
-            ]
-        },
-        {
-            "sort": 6,
-            "name": "Server Password",
-            "description": "",
-            "env_variable": "SERVER_PASSWORD",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "string"
             ]
         }
     ]
