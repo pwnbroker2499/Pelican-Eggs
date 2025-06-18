@@ -4,11 +4,11 @@
         "version": "PLCN_v1",
         "update_url": null
     },
-    "exported_at": "2025-06-18T07:39:24+00:00",
+    "exported_at": "2025-06-18T21:02:21+00:00",
     "name": "SCUM - Temp",
     "author": "PwnBroker3000@gmail.com",
     "uuid": "f9097184-4f79-4a6d-8b02-b066dbee790b",
-    "description": "SCUM Server. You will need to hand edit the SeverSettings.ini found in SCUM\/Saved\/Config\/WindowsServer\/",
+    "description": "SCUM, a survival crafting game, Server. \nYou will need to hand edit the SeverSettings.ini found in SCUM\/Saved\/Config\/WindowsServer\/ Allocate 3 consecutive ports starting at target port. I.e. if you choose 1000 allocate 1000, 1001, and 1002",
     "features": [],
     "docker_images": {
         "Wine Latest": "ghcr.io\/parkervcp\/yolks:wine_latest"
@@ -17,7 +17,7 @@
     "startup": "wine64 .\/SCUMServer\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -Port=\"{{SERVER_PORT}}\"",
     "config": {
         "files": "{}",
-        "startup": "{}",
+        "startup": "{\n}",
         "logs": "{}",
         "stop": "^C"
     },
@@ -34,7 +34,7 @@
             "name": "SRCDS_APPID",
             "description": "",
             "env_variable": "SRCDS_APPID",
-            "default_value": "911460",
+            "default_value": "3792580",
             "user_viewable": false,
             "user_editable": false,
             "rules": []
