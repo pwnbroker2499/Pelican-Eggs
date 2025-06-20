@@ -4,26 +4,26 @@
         "version": "PLCN_v1",
         "update_url": null
     },
-    "exported_at": "2025-06-18T21:02:21+00:00",
-    "name": "SCUM - Temp",
+    "exported_at": "2025-06-20T00:16:13+00:00",
+    "name": "SCUM",
     "author": "PwnBroker3000@gmail.com",
     "uuid": "f9097184-4f79-4a6d-8b02-b066dbee790b",
-    "description": "SCUM, a survival crafting game, Server. \nYou will need to hand edit the SeverSettings.ini found in SCUM\/Saved\/Config\/WindowsServer\/ Allocate 3 consecutive ports starting at target port. I.e. if you choose 1000 allocate 1000, 1001, and 1002",
+    "description": "SCUM, a survival crafting game.\nYou will need to hand edit the SeverSettings.ini found in SCUM\/Saved\/Config\/WindowsServer\/ \nAllocate 3 consecutive ports starting at target port. I.e. if you choose 1000 allocate 1000, 1001, and 1002",
     "features": [],
     "docker_images": {
         "Wine Latest": "ghcr.io\/parkervcp\/yolks:wine_latest"
     },
     "file_denylist": [],
-    "startup": "wine64 .\/SCUMServer\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -Port=\"{{SERVER_PORT}}\"",
+    "startup": "wine64 .\/SCUM\/Binaries\/Win64\/SCUMServer.exe -Log -Port=\"{{SERVER_PORT}}\"",
     "config": {
         "files": "{}",
-        "startup": "{\n   \"done\":\"MasterPort\"\n}\n"
+        "startup": "{\n   \"done\":\"MasterPort\"\n}\n",
         "logs": "{}",
         "stop": "^C"
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/bash\r\n\r\n## License: MIT License\r\n## Image to install with is 'ghcr.io\/parkervcp\/installers:debian'\r\n\r\nif [[ \"${STEAM_USER}\" == \"\" ]] || [[ \"${STEAM_PASS}\" == \"\" ]]; then\r\n    echo -e \"steam user is not set.\\n\"\r\n    echo -e \"Using anonymous user.\\n\"\r\n    STEAM_USER=anonymous\r\n    STEAM_PASS=\"\"\r\n    STEAM_AUTH=\"\"\r\nelse\r\n    echo -e \"user set to ${STEAM_USER}\"\r\nfi\r\n\r\n## download and install steamcmd\r\ncd \/tmp\r\nmkdir -p \/mnt\/server\/steamcmd\r\ncurl -sSL -o steamcmd.tar.gz https:\/\/steamcdn-a.akamaihd.net\/client\/installer\/steamcmd_linux.tar.gz\r\ntar -xzvf steamcmd.tar.gz -C \/mnt\/server\/steamcmd\r\nmkdir -p \/mnt\/server\/steamapps # Fix steamcmd disk write error when this folder is missing\r\ncd \/mnt\/server\/steamcmd\r\n\r\n# SteamCMD fails otherwise for some reason, even running as root.\r\n# This is changed at the end of the install process anyways.\r\nchown -R root:root \/mnt\r\nexport HOME=\/mnt\/server\r\n\r\n## install game using steamcmd\r\n.\/steamcmd.sh +force_install_dir \/mnt\/server +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} $( [[ \"${WINDOWS_INSTALL}\" == \"1\" ]] && printf %s '+@sSteamCmdForcePlatformType windows' ) +app_update ${SRCDS_APPID} validate +quit\r\n\r\n## set up 32 bit libraries\r\nmkdir -p \/mnt\/server\/.steam\/sdk32\r\ncp -v linux32\/steamclient.so ..\/.steam\/sdk32\/steamclient.so\r\n\r\n## set up 64 bit libraries\r\nmkdir -p \/mnt\/server\/.steam\/sdk64\r\ncp -v linux64\/steamclient.so ..\/.steam\/sdk64\/steamclient.so\r\n\r\nFILE=\/mnt\/server\/SCUMServer\/SCUM\/Saved\/Config\/WindowsServer\/ServerSettings.ini\r\nif [ -f \"$FILE\" ]; then\r\n    echo \"Config already exist skipping\"\r\nelse \r\n    echo \"Config does not yet exist, making one\"\r\n    mkdir -p \/mnt\/server\/SCUMServer\/SCUM\/Saved\/Config\/WindowsServer\r\n    cd \/mnt\/server\/SCUMServer\/SCUM\/Saved\/Config\/WindowsServer\r\n    curl -sSL -o ServerSettings.ini https:\/\/raw.githubusercontent.com\/pwnbroker2499\/Pelican-Eggs\/refs\/heads\/main\/SCUM\/Config\/ServerSettings.ini\r\nfi\r\n\r\n## install end\r\necho \"-----------------------------------------\"\r\necho \"Installation completed...\"\r\necho \"-----------------------------------------\"",
+            "script": "#!\/bin\/bash\r\n\r\n## License: MIT License\r\n## Image to install with is 'ghcr.io\/parkervcp\/installers:debian'\r\n\r\nif [[ \"${STEAM_USER}\" == \"\" ]] || [[ \"${STEAM_PASS}\" == \"\" ]]; then\r\n    echo -e \"steam user is not set.\\n\"\r\n    echo -e \"Using anonymous user.\\n\"\r\n    STEAM_USER=anonymous\r\n    STEAM_PASS=\"\"\r\n    STEAM_AUTH=\"\"\r\nelse\r\n    echo -e \"user set to ${STEAM_USER}\"\r\nfi\r\n\r\n## download and install steamcmd\r\ncd \/tmp\r\nmkdir -p \/mnt\/server\/steamcmd\r\ncurl -sSL -o steamcmd.tar.gz https:\/\/steamcdn-a.akamaihd.net\/client\/installer\/steamcmd_linux.tar.gz\r\ntar -xzvf steamcmd.tar.gz -C \/mnt\/server\/steamcmd\r\nmkdir -p \/mnt\/server\/steamapps # Fix steamcmd disk write error when this folder is missing\r\ncd \/mnt\/server\/steamcmd\r\n\r\n# SteamCMD fails otherwise for some reason, even running as root.\r\n# This is changed at the end of the install process anyways.\r\nchown -R root:root \/mnt\r\nexport HOME=\/mnt\/server\r\n\r\n## install game using steamcmd\r\n.\/steamcmd.sh +force_install_dir \/mnt\/server +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} $( [[ \"${WINDOWS_INSTALL}\" == \"1\" ]] && printf %s '+@sSteamCmdForcePlatformType windows' ) +app_update ${SRCDS_APPID} validate +quit\r\n\r\n## set up 32 bit libraries\r\nmkdir -p \/mnt\/server\/.steam\/sdk32\r\ncp -v linux32\/steamclient.so ..\/.steam\/sdk32\/steamclient.so\r\n\r\n## set up 64 bit libraries\r\nmkdir -p \/mnt\/server\/.steam\/sdk64\r\ncp -v linux64\/steamclient.so ..\/.steam\/sdk64\/steamclient.so\r\n\r\nFILE=\/mnt\/server\/SCUM\/Saved\/Config\/WindowsServer\/ServerSettings.ini\r\nif [ -f \"$FILE\" ]; then\r\n    echo \"Config already exist skipping\"\r\nelse \r\n    echo \"Config does not yet exist, making one\"\r\n    mkdir -p \/mnt\/server\/SCUM\/Saved\/Config\/WindowsServer\r\n    cd \/mnt\/server\/SCUM\/Saved\/Config\/WindowsServer\r\n    curl -sSL -o ServerSettings.ini https:\/\/raw.githubusercontent.com\/pwnbroker2499\/Pelican-Eggs\/refs\/heads\/main\/SCUM\/Config\/ServerSettings.ini\r\nfi\r\n\r\n## install end\r\necho \"-----------------------------------------\"\r\necho \"Installation completed...\"\r\necho \"-----------------------------------------\"",
             "container": "ghcr.io\/pelican-eggs\/installers:debian",
             "entrypoint": "bash"
         }
